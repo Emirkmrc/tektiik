@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>tekTik - Teknolojik Hizmetiniz Tek Tıkta</title>
+  <style>
+    /* Genel Reset */
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body {
+      font-family: 'Montserrat', 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #333;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    button {
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+    }
+    :root {
+      --primary-gradient: linear-gradient(135deg, #00bb5a, #0057ff);
+      --primary-hover: linear-gradient(135deg, #009f4e, #0047e0);
+      --accent: #00bb5a;
+      --text-light: #eee;
+      --bg-dark: #121217;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 70px;
+      background: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+      z-index: 10000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 3px;
+      user-select: none;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .logo span:last-child {
+      color: #0057ff;
+      font-weight: 900;
+    }
+    nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    nav a {
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      padding: 10px 0;
+      position: relative;
+      transition: color 0.3s ease;
+      color: #333;
+      letter-spacing: 1px;
+    }
+    nav a.active, nav a:hover {
+      color: var(--accent);
+    }
+    nav a.active::after, nav a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 10px;
+    }
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin-left: 30px;
+    }
+    .social-icons a {
+      font-size: 1.2rem;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+    .social-icons a:hover {
+      color: var(--accent);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .hamburger div {
+      width: 28px;
+      height: 3px;
+      background: #333;
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, #0057ffcc 0%, #00bb5acc 100%), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      margin-top: 70px;
+      position: relative;
+      animation: bgPulse 10s ease-in-out infinite alternate;
+    }
+    @keyframes bgPulse {
+      0% { filter: brightness(1); }
+      100% { filter: brightness(1.1); }
+    }
+    .hero-content {
+      position: relative;
+      max-width: 700px;
+      z-index: 1;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      color: #00bb5a;
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .hero h1 span {
+      color: #0057ff;
+    }
+    .hero p {
+      font-size: 1.8rem;
+      margin-bottom: 50px;
+      font-weight: 600;
+      color: #d3d3d3;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .hero button {
+      background: var(--primary-gradient);
+      padding: 20px 60px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: white;
+      transition: background 0.4s ease, transform 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 1px;
+    }
+    .hero button:hover {
+      background: var(--primary-hover);
+      transform: scale(1.1);
+    }
+
+    /* COUNTDOWN */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      max-width: 900px;
+      margin: 80px auto 100px;
+      text-align: center;
+    }
+    .countdown div {
+      background: #f5f5f5;
+      border-radius: 15px;
+      padding: 30px 25px;
+      box-shadow: 0 0 20px rgba(0, 187, 90, 0.2);
+      min-width: 100px;
+      user-select: none;
+    }
+    .countdown .number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .countdown .label {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 1rem;
+      color: #888;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* YENİ HİZMETLER STİLİ */
+    .home-services {
+      max-width: 1100px;
+      margin: 0 auto 120px;
+      padding: 0 20px;
+    }
+    .home-services h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 60px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
+    }
+    .service-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+      gap: 35px;
+    }
+    .service-card {
+      background: #f5f5f5;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 187, 90, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: #333;
+      position: relative;
+      overflow: hidden;
+      min-height: 300px;
+    }
+    .service-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 0 30px rgba(0, 187, 90, 0.3);
+    }
+    .service-card h3 {
+      font-size: 1.7rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .service-card p {
+      color: #666;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .service-card .background-feature {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      z-index: 1;
+      background-size: cover;
+      background-position: center;
+    }
+    .feature-text {
+      background: rgba(255,255,255,0.9);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      position: relative;
+      z-index: 2;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* YORUMLAR BÖLÜMÜ */
+    .testimonials {
+      max-width: 1100px;
+      margin: 0 auto 120px;
+      padding: 0 20px;
+    }
+    .testimonials h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 60px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 2px;
+    }
+    .testimonial-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap: 30px;
+    }
+    .testimonial-card {
+      background: #f5f5f5;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 187, 90, 0.2);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+    }
+    .testimonial-card .quote {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-style: italic;
+      color: #555;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .testimonial-card .author {
+      display: flex;
+      align-items: center;
+    }
+    .testimonial-card .author img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+    .author-info h4 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-bottom: 5px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .author-info p {
+      font-size: 0.9rem;
+      color: #777;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* İLETİŞİM BÖLÜMÜ */
+    .contact-section {
+      max-width: 1100px;
+      margin: 0 auto 120px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+    .contact-info {
+      background: #f5f5f5;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 187, 90, 0.2);
+    }
+    .contact-info h3 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 30px;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .contact-item {
+      display: flex;
+      margin-bottom: 25px;
+    }
+    .contact-item i {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-right: 20px;
+      width: 30px;
+    }
+    .contact-text h4 {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 5px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .contact-text p {
+      color: #666;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Form Alanları */
+    section.survey, section.investor, section.contact {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      background: #f5f5f5;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    section.survey h2, section.investor h2, section.contact h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 30px;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .contact-btn {
+      display: inline-block;
+      background: var(--primary-gradient);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      margin-top: 20px;
+      transition: background 0.3s ease, transform 0.3s ease;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 187, 90, 0.3);
+      font-family: 'Montserrat', sans-serif;
+    }
+    .contact-btn:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #555;
+      font-size: 0.95rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1px solid #ddd;
+      color: #333;
+      font-size: 0.95rem;
+      resize: vertical;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 187, 90, 0.3);
+      border-color: var(--accent);
+    }
+    button.submit-btn {
+      background: var(--primary-gradient);
+      padding: 15px 0;
+      width: 100%;
+      border-radius: 50px;
+      font-weight: 900;
+      font-size: 1rem;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 187, 90, 0.3);
+      transition: background 0.3s ease, transform 0.3s ease;
+      font-family: 'Montserrat', sans-serif;
+    }
+    button.submit-btn:hover {
+      background: var(--primary-hover);
+      transform: scale(1.02);
+    }
+    .survey-question {
+      margin-bottom: 25px;
+    }
+    .survey-question p {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #555;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .survey-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .survey-option {
+      display: flex;
+      align-items: center;
+    }
+    .survey-option input {
+      width: auto;
+      margin-right: 10px;
+      margin-bottom: 0;
+    }
+    .survey-option label {
+      font-weight: 500;
+      margin-bottom: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: #f5f5f5;
+      font-size: 0.9rem;
+      color: #666;
+      border-top: 1px solid #ddd;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Sayfa Geçişleri */
+    .page {
+      display: none;
+      padding-top: 70px;
+      background: #fff;
+    }
+    .page.active {
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 3.8rem;
+        letter-spacing: 3px;
+      }
+      .hero p {
+        font-size: 1.4rem;
+        margin-bottom: 40px;
+      }
+      .hero button {
+        padding: 16px 40px;
+        font-size: 1.1rem;
+      }
+      
+      section.survey, section.investor, section.contact {
+        margin: 30px 20px;
+        padding: 25px;
+      }
+      
+      .social-icons {
+        display: none;
+      }
+      
+      .service-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-section {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 600px) {
+      nav {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      nav.open {
+        display: flex !important;
+        flex-direction: column;
+        position: fixed;
+        top: 70px;
+        left: 0; right: 0;
+        background: #ffffff;
+        gap: 20px;
+        padding: 20px 0;
+        z-index: 9999;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      }
+      nav.open a {
+        font-size: 1.3rem;
+        text-align: center;
+        padding: 10px 30px;
+        color: #333;
+      }
+      
+      .countdown {
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .countdown div {
+        min-width: calc(50% - 20px);
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;700;900&family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">tek<span>Tik</span></div>
+  <nav id="main-nav">
+    
+    
+    <a href="#home" class="nav-link active" data-page="home">Ana Sayfa</a>
+    <a href="#services" class="nav-link" data-page="services">Hizmetler</a>
+    <a href="#survey" class="nav-link" data-page="survey">Anket</a>
+    <a href="#investor" class="nav-link" data-page="investor">Yatırımcı</a>
+    <a href="#contact" class="nav-link" data-page="contact">İletişim</a>
+    <div class="social-icons">
+      <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</header>
+
+<!-- ANA SAYFA -->
+<section id="home" class="page active">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>TEK<span>TİK</span></h1>
+      <p>Teknolojik hizmetiniz tek tık uzağınızda</p>
+      <button>Hemen Keşfet</button>
+    </div>
+  </section>
+
+  <div class="countdown">
+    <div>
+      <span class="number" id="days">00</span>
+      <span class="label">Gün</span>
+    </div>
+    <div>
+      <span class="number" id="hours">00</span>
+      <span class="label">Saat</span>
+    </div>
+    <div>
+      <span class="number" id="minutes">00</span>
+      <span class="label">Dakika</span>
+    </div>
+    <div>
+      <span class="number" id="seconds">00</span>
+      <span class="label">Saniye</span>
+    </div>
+  </div>
+
+  <!-- YENİ HİZMETLER BÖLÜMÜ -->
+  <section class="home-services">
+    <h2>Hizmetlerimiz</h2>
+    <div class="service-cards">
+      <div class="service-card">
+        <div class="background-feature" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?center=40.7128,-74.0060&zoom=13&size=600x300&maptype=roadmap&markers=color:red%7C40.7128,-74.0060&key=YOUR_API_KEY');"></div>
+        <h3>Yakın Lokasyon Hizmeti</h3>
+        <p>Konumunuzu kullanarak size en yakın hizmet sağlayıcıları buluyoruz. Tek tıkla en yakındaki profesyonellere ulaşın.</p>
+        <div class="feature-text">Gerçek zamanlı konum takibi ile en yakın hizmet sağlayıcıları listeler</div>
+      </div>
+      <div class="service-card">
+        <div class="background-feature" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+        <h3>Akıllı Randevu Sistemi</h3>
+        <p>Kolay randevu planlama, hatırlatma ve takip sistemi. Günlük planlarınızı oluşturun, uygulama sizi yönlendirsin.</p>
+        <div class="feature-text">Otomatik hatırlatmalar ve entegre takvim ile randevularınızı yönetin</div>
+      </div>
+      <div class="service-card">
+        <div class="background-feature" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+        <h3>7/24 Hizmet</h3>
+        <p>Gelişmiş algoritmalarımız sayesinde 7/24 kesintisiz hizmet sunuyoruz. Acil ihtiyaçlarınız için anında çözüm üretiyoruz.</p>
+        <div class="feature-text">Dinamik fiyatlandırma algoritması ile en uygun hizmeti sunar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YORUMLAR BÖLÜMÜ -->
+  <section class="testimonials">
+    <h2>Müşteri Yorumları</h2>
+    <div class="testimonial-cards">
+      <div class="testimonial-card">
+        <div class="quote">"TekTik sayesinde ihtiyacım olan hizmete anında ulaştım. Kullanıcı dostu arayüzü ve hızlı hizmeti için teşekkürler!"</div>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Müşteri">
+          <div class="author-info">
+            <h4>Ayşe K.</h4>
+            <p>İstanbul</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="quote">"7/24 destek hizmeti gerçekten harika! Gece yarısı bile olsa sorunuma anında çözüm buldum. Kesinlikle tavsiye ederim."</div>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Müşteri">
+          <div class="author-info">
+            <h4>Mehmet E.</h4>
+            <p>Ankara</p>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="quote">"Yakın lokasyon özelliği sayesinde en yakındaki servis sağlayıcıyı bulmak artık çok kolay. Zaman ve yakıt tasarrufu sağladı."</div>
+        <div class="author">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Müşteri">
+          <div class="author-info">
+            <h4>Fatma T.</h4>
+            <p>İzmir</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- İLETİŞİM BÖLÜMÜ -->
+  <section class="contact-section">
+    <div class="contact-info">
+      <h3>İletişim Bilgileri</h3>
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div class="contact-text">
+          <h4>Adres</h4>
+          <p>GİRESUN<br>ESPİYE MERKEZ MAHALLESİ <br></p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div class="contact-text">
+          <h4>Telefon</h4>
+          <p>+9000000000</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <div class="contact-text">
+          <h4>E-posta</h4>
+          <p>info@tektik.com</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-clock"></i>
+        <div class="contact-text">
+          <h4>Çalışma Saatleri</h4>
+          <p>Hafta İçi: 09:00 - 18:00<br>Hafta Sonu: Kapalı</p>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Bize Ulaşın</h3>
+      <form>
+        <label for="contact-name">Adınız</label>
+        <input type="text" id="contact-name" required>
+        
+        <label for="contact-email">E-posta</label>
+        <input type="email" id="contact-email" required>
+        
+        <label for="contact-subject">Konu</label>
+        <input type="text" id="contact-subject" required>
+        
+        <label for="contact-message">Mesajınız</label>
+        <textarea id="contact-message" rows="5" required></textarea>
+        
+        <button type="submit" class="submit-btn">Gönder</button>
+      </form>
+    </div>
+  </section>
+</section>
+
+<!-- HİZMETLER SAYFASI -->
+<section id="services" class="page">
+  <section class="home-services">
+    <h2>Hizmetlerimiz</h2>
+    <div class="service-cards">
+      <div class="service-card">
+        <div class="background-feature" style="background-image: url('https://maps.googleapis.com/maps/api/staticmap?center=40.7128,-74.0060&zoom=13&size=600x300&maptype=roadmap&markers=color:red%7C40.7128,-74.0060&key=YOUR_API_KEY');"></div>
+        <h3>Yakın Lokasyon Hizmeti</h3>
+        <p>Konumunuzu kullanarak size en yakın hizmet sağlayıcıları buluyoruz. Tek tıkla en yakındaki profesyonellere ulaşın.</p>
+        <div class="feature-text">Gerçek zamanlı konum takibi ile en yakın hizmet sağlayıcıları listeler</div>
+      </div>
+      <div class="service-card">
+        <div class="background-feature" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+        <h3>Akıllı Randevu Sistemi</h3>
+        <p>Kolay randevu planlama, hatırlatma ve takip sistemi. Günlük planlarınızı oluşturun, uygulama sizi yönlendirsin.</p>
+        <div class="feature-text">Otomatik hatırlatmalar ve entegre takvim ile randevularınızı yönetin</div>
+      </div>
+      <div class="service-card">
+        <div class="background-feature" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+        <h3>7/24 Hizmet</h3>
+        <p>Gelişmiş algoritmalarımız sayesinde 7/24 kesintisiz hizmet sunuyoruz. Acil ihtiyaçlarınız için anında çözüm üretiyoruz.</p>
+        <div class="feature-text">Dinamik fiyatlandırma algoritması ile en uygun hizmeti sunar</div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ANKET SAYFASI -->
+<section id="survey" class="page">
+  <section class="survey">
+    <h2>Anket Formu</h2>
+    <form>
+      <label for="name">Adınız</label>
+      <input type="text" id="name" required>
+      
+      <label for="email">E-posta</label>
+      <input type="email" id="email" required>
+      
+      <div class="survey-question">
+        <p>1. Uygulamamızı beğendiniz mi?</p>
+        <div class="survey-options">
+          <label class="survey-option"><input type="radio" name="q1" value="excellent"> Çok beğendim</label>
+          <label class="survey-option"><input type="radio" name="q1" value="good"> Beğendim</label>
+          <label class="survey-option"><input type="radio" name="q1" value="average"> Orta</label>
+          <label class="survey-option"><input type="radio" name="q1" value="poor"> Beğenmedim</label>
+        </div>
+      </div>
+      
+      <div class="survey-question">
+        <p>2. Uygulamayı kullanmayı düşünüyor musunuz?</p>
+        <div class="survey-options">
+          <label class="survey-option"><input type="radio" name="q2" value="definitely"> Kesinlikle evet</label>
+          <label class="survey-option"><input type="radio" name="q2" value="probably"> Muhtemelen</label>
+          <label class="survey-option"><input type="radio" name="q2" value="notsure"> Emin değilim</label>
+          <label class="survey-option"><input type="radio" name="q2" value="no"> Hayır</label>
+        </div>
+      </div>
+      
+      <div class="survey-question">
+        <p>3. Uygulamanın hangi özelliği en çok ilginizi çekti?</p>
+        <div class="survey-options">
+          <label class="survey-option"><input type="radio" name="q3" value="location"> Yakın lokasyon bulma</label>
+          <label class="survey-option"><input type="radio" name="q3" value="appointment"> Randevu sistemi</label>
+          <label class="survey-option"><input type="radio" name="q3" value="support"> 7/24 destek</label>
+          <label class="survey-option"><input type="radio" name="q3" value="pricing"> Dinamik fiyatlandırma</label>
+        </div>
+      </div>
+      
+      <div class="survey-question">
+        <p>4. Uygulamayı arkadaşlarınıza önerir misiniz?</p>
+        <div class="survey-options">
+          <label class="survey-option"><input type="radio" name="q4" value="yes"> Evet</label>
+          <label class="survey-option"><input type="radio" name="q4" value="no"> Hayır</label>
+          <label class="survey-option"><input type="radio" name="q4" value="maybe"> Belki</label>
+        </div>
+      </div>
+      
+      <div class="survey-question">
+        <p>5. Uygulamanın geliştirilmesini istediğiniz bir yönü var mı?</p>
+        <textarea id="improvement" rows="3"></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn">Gönder</button>
+    </form>
+  </section>
+</section>
+
+<!-- YATIRIMCI SAYFASI -->
+<section id="investor" class="page">
+  <section class="investor">
+    <h2>Yatırımcı Formu</h2>
+    <form>
+      <label for="investor-name">Adınız</label>
+      <input type="text" id="investor-name" required>
+      
+      <label for="investor-email">E-posta</label>
+      <input type="email" id="investor-email" required>
+      
+      <label for="investor-message">Yatırım Öneriniz</label>
+      <textarea id="investor-message" rows="5" required></textarea>
+      
+      <button type="submit" class="submit-btn">Gönder</button>
+      
+      <div style="text-align: center; margin-top: 20px;">
+        <a href="#contact" class="contact-btn" data-page="contact">İletişime Geç</a>
+      </div>
+    </form>
+  </section>
+</section>
+
+<!-- İLETİŞİM SAYFASI -->
+<section id="contact" class="page">
+  <section class="contact">
+    <h2>İletişim Formu</h2>
+    <form>
+      <label for="contact-name">Adınız</label>
+      <input type="text" id="contact-name" required>
+      
+      <label for="contact-email">E-posta</label>
+      <input type="email" id="contact-email" required>
+      
+      <label for="contact-subject">Konu</label>
+      <input type="text" id="contact-subject" required>
+      
+      <label for="contact-message">Mesajınız</label>
+      <textarea id="contact-message" rows="5" required></textarea>
+      
+      <button type="submit" class="submit-btn">Gönder</button>
+    </form>
+  </section>
+</section>
+
+<footer>
+  &copy; 2025 tekTik. Tüm hakları saklıdır.
+</footer>
+
+<script>
+  // Hamburger menü
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('main-nav');
+  
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('open');
+  });
+
+  // Sayfa geçişleri
+  document.querySelectorAll('.nav-link, .contact-btn').forEach(link => {
+    link.addEventListener('click', function(e) {
+      if(this.tagName === 'A' && this.getAttribute('href').startsWith('#')) {
+        e.preventDefault();
+        
+        // Aktif menü öğesini güncelle
+        document.querySelectorAll('.nav-link').forEach(item => {
+          item.classList.remove('active');
+        });
+        if(this.classList.contains('nav-link')) {
+          this.classList.add('active');
+        } else {
+          document.querySelector(`.nav-link[data-page="${this.getAttribute('data-page')}"]`).classList.add('active');
+        }
+        
+        // Aktif sayfayı göster
+        const pageId = this.getAttribute('data-page') || this.getAttribute('href').substring(1);
+        document.querySelectorAll('.page').forEach(page => {
+          page.classList.remove('active');
+        });
+        document.getElementById(pageId).classList.add('active');
+        
+        // Mobil menüyü kapat
+        if (window.innerWidth <= 600) {
+          hamburger.classList.remove('active');
+          nav.classList.remove('open');
+        }
+        
+        // URL'yi güncelle
+        history.pushState(null, null, `#${pageId}`);
+      }
+    });
+  });
+
+  // Sayfa yüklendiğinde hash'e göre sayfayı göster
+  window.addEventListener('load', function() {
+    const hash = window.location.hash.substring(1) || 'home';
+    const activeLink = document.querySelector(`.nav-link[data-page="${hash}"]`);
+    
+    if (activeLink) {
+      document.querySelectorAll('.nav-link').forEach(item => {
+        item.classList.remove('active');
+      });
+      activeLink.classList.add('active');
+      
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      document.getElementById(hash).classList.add('active');
+    }
+  });
+
+  // Geri/ileri butonları için
+  window.addEventListener('popstate', function() {
+    const hash = window.location.hash.substring(1) || 'home';
+    const activeLink = document.querySelector(`.nav-link[data-page="${hash}"]`);
+    
+    if (activeLink) {
+      document.querySelectorAll('.nav-link').forEach(item => {
+        item.classList.remove('active');
+      });
+      activeLink.classList.add('active');
+      
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      document.getElementById(hash).classList.add('active');
+    }
+  });
+
+  // Geri sayım
+  function updateCountdown() {
+    const endDate = new Date("November 1, 2027 00:00:00").getTime();
+    const now = new Date().getTime();
+    const timeLeft = endDate - now;
+
+    if (timeLeft <= 0) {
+      document.getElementById("days").innerText = "00";
+      document.getElementById("hours").innerText = "00";
+      document.getElementById("minutes").innerText = "00";
+      document.getElementById("seconds").innerText = "00";
+      return;
+    }
+
+    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
+    const seconds = Math.floor((timeLeft / 1000) % 60);
+
+    document.getElementById("days").innerText = days.toString().padStart(2, '0');
+    document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+    document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+    document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+</body>
+</html>
